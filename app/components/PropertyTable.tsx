@@ -17,7 +17,9 @@ export default function PropertyTable({ data: propertyData }: PropertyTableProps
       const [day, month, year] = dateStr.split('-');
       return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
     } catch (error) {
+      console.log(error);
       return '';
+      
     }
   };
 
