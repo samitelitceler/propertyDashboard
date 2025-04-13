@@ -68,9 +68,9 @@ export default function PropertyTable({ data: propertyData }: PropertyTableProps
         />
       </div>
 
-      <table className="min-w-full">
+      <table className="min-w-full text-white">
         <thead>
-          <tr className="bg-gray-800">
+          <tr className="bg-gray-800 text-white">
             <th className="p-4 text-left">Old Owner Name</th>
             <th className="p-4 text-left">Land Price (INR)</th>
             <th className="p-4 text-left">Dimensions (sq. ft)</th>
@@ -81,7 +81,7 @@ export default function PropertyTable({ data: propertyData }: PropertyTableProps
         </thead>
         <tbody className='bg-gray-800'>
           {filteredData.map((item, index) => (
-            <tr key={index} className="border-t">
+            <tr key={index} className="border-t text-white">
               <td className="p-4">{item['Old Owner Name']}</td>
               <td className="p-4">{item['Land Price (INR)']}</td>
               <td className="p-4">{item['Dimensions (sq. ft)']}</td>

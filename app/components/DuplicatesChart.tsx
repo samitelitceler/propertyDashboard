@@ -38,5 +38,19 @@ export default function DuplicatesChart({ data: propertyData }: DuplicatesChartP
     }]
   };
 
-  return <Pie data={chartData} />;
+  const options = {
+    responsive: true,
+    maintainAspectRatio: true,
+    plugins: {
+      legend: {
+        position: 'top' as const,
+      }
+    }
+  };
+
+  return (
+    <div style={{ width: '300px', height: '300px', margin: 'auto' }}>
+      <Pie data={chartData} options={options} />
+    </div>
+  );
 } 
