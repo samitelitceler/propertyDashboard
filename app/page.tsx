@@ -1,6 +1,5 @@
 'use client';
 import { useEffect, useState } from 'react';
-import Papa from 'papaparse';
 import StatsCard from './components/StatsCard';
 import DuplicatesChart from './components/DuplicatesChart';
 import PropertiesChart from './components/PropertiesChart';
@@ -23,19 +22,14 @@ export default function Home() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Get the base URL dynamically
-        const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL 
-          ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}` 
-          : '';
-        
-        const response = await fetch(`${baseUrl}/DATASET_with_property_IDs.csv`);
-        if (!response.ok) throw new Error('Failed to fetch CSV');
-        
-        const text = await response.text(); // Simpler way to get text
-        const parsed = Papa.parse(text, { header: true });
-        setData(parsed.data as PropertyData[]);
+        const response = await fetch('/api/data');
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
+        const data = await response.json();
+        setData(data as PropertyData[]);
       } catch (error) {
-        console.error('Error loading CSV:', error);
+        console.error('Error loading data:', error);
       }
     };
 
