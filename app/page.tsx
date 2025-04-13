@@ -22,13 +22,21 @@ export default function Home() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch('/DATASET_with_property_IDs.csv');
-      const reader = response.body?.getReader();
-      const result = await reader?.read();
-      const decoder = new TextDecoder('utf-8');
-      const csv = decoder.decode(result?.value);
-      const parsed = Papa.parse(csv, { header: true });
-      setData(parsed.data as PropertyData[]);
+      try {
+        // Get the base URL dynamically
+        const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL 
+          ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}` 
+          : '';
+        
+        const response = await fetch(`${baseUrl}/DATASET_with_property_IDs.csv`);
+        if (!response.ok) throw new Error('Failed to fetch CSV');
+        
+        const text = await response.text(); // Simpler way to get text
+        const parsed = Papa.parse(text, { header: true });
+        setData(parsed.data as PropertyData[]);
+      } catch (error) {
+        console.error('Error loading CSV:', error);
+      }
     };
 
     fetchData();
