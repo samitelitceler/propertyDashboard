@@ -45,53 +45,72 @@ export default function PropertyTable({ data: propertyData }: PropertyTableProps
   return (
     <div className="overflow-x-auto">
       {/* Filters */}
-      <div className="p-4 grid grid-cols-3 gap-4 bg-gray-800">
-        <input
-          type="date"
-          value={dateFilter}
-          onChange={(e) => setDateFilter(e.target.value)}
-          className="border p-2 rounded"
-        />
-        <input
-          type="text"
-          value={priceFilter}
-          onChange={(e) => setPriceFilter(e.target.value)}
-          className="border p-2 rounded"
-          placeholder="Filter by price"
-        />
-        <input
-          type="text"
-          value={sqftFilter}
-          onChange={(e) => setSqftFilter(e.target.value)}
-          className="border p-2 rounded"
-          placeholder="Filter by sq.ft"
-        />
+      <div className="p-4 grid grid-cols-3 gap-4 bg-gray-800 sticky top-0 z-10">
+        <div>
+          <label className="block text-white text-sm mb-1">Date</label>
+          <input
+            type="date"
+            value={dateFilter}
+            onChange={(e) => setDateFilter(e.target.value)}
+            className="w-full border p-2 rounded bg-gray-700 text-white"
+          />
+        </div>
+        <div>
+          <label className="block text-white text-sm mb-1">Price</label>
+          <input
+            type="text"
+            value={priceFilter}
+            onChange={(e) => setPriceFilter(e.target.value)}
+            className="w-full border p-2 rounded bg-gray-700 text-white"
+            placeholder="Filter by price"
+          />
+        </div>
+        <div>
+          <label className="block text-white text-sm mb-1">Square Feet</label>
+          <input
+            type="text"
+            value={sqftFilter}
+            onChange={(e) => setSqftFilter(e.target.value)}
+            className="w-full border p-2 rounded bg-gray-700 text-white"
+            placeholder="Filter by sq.ft"
+          />
+        </div>
       </div>
 
-      <table className="min-w-full text-white">
-        <thead>
-          <tr className="bg-gray-800 text-white">
-            <th className="p-4 text-left">Old Owner Name</th>
-            <th className="p-4 text-left">Land Price (INR)</th>
-            <th className="p-4 text-left">Dimensions (sq. ft)</th>
-            <th className="p-4 text-left">New Owner Name</th>
-            <th className="p-4 text-left">Location</th>
-            <th className="p-4 text-left">Transaction Date</th>
-          </tr>
-        </thead>
-        <tbody className='bg-gray-800'>
-          {filteredData.map((item, index) => (
-            <tr key={index} className="border-t text-white">
-              <td className="p-4">{item['Old Owner Name']}</td>
-              <td className="p-4">{item['Land Price (INR)']}</td>
-              <td className="p-4">{item['Dimensions (sq. ft)']}</td>
-              <td className="p-4">{item['New Owner Name']}</td>
-              <td className="p-4">{item.Location}</td>
-              <td className="p-4">{item['Transaction Date']}</td>
+      <div className="overflow-x-auto">
+        <table className="min-w-full text-white whitespace-nowrap">
+          <thead>
+            <tr className="bg-gray-800 text-white">
+              <th className="p-4 text-left font-medium">Old Owner</th>
+              <th className="p-4 text-left font-medium">New Owner</th>
+              <th className="p-4 text-left font-medium">Price (INR)</th>
+              <th className="p-4 text-left font-medium">Sq.ft</th>
+              <th className="p-4 text-left font-medium">Location</th>
+              <th className="p-4 text-left font-medium">Date</th>
+              <th className="p-4 text-left font-medium">Property ID</th>
+              <th className="p-4 text-left font-medium min-w-[400px]">
+                Transaction Hash
+              </th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody className="bg-gray-800">
+            {filteredData.map((item, index) => (
+              <tr key={index} className="border-t border-gray-700 hover:bg-gray-700">
+                <td className="p-4">{item['Old Owner Name']}</td>
+                <td className="p-4">{item['New Owner Name']}</td>
+                <td className="p-4">{item['Land Price (INR)']}</td>
+                <td className="p-4">{item['Dimensions (sq. ft)']}</td>
+                <td className="p-4">{item.Location}</td>
+                <td className="p-4">{item['Transaction Date']}</td>
+                <td className="p-4">{item['property id']}</td>
+                <td className="p-4 min-w-[400px]">
+                  {item.Transaction_Hash}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 } 
